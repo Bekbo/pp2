@@ -12,9 +12,8 @@ namespace Task3
         public static void p(int level)
         {
             for (int i = 0; i < level; i++)
-                Console.Write("  ");
+                Console.Write("   ");
         }
-
         public static void f(DirectoryInfo dir, int level)
         {
             foreach (DirectoryInfo d in dir.GetDirectories())
@@ -29,7 +28,6 @@ namespace Task3
                 Console.WriteLine(f.Name);
             }
         }
-
         static void Main(string[] args)
         {
             //DirectoryInfo dir = new DirectoryInfo("/Users/User/projects/PP2");

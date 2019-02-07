@@ -21,7 +21,7 @@ namespace Task1
                 {
                     if (n % i == 0) // if there is a divider where remainder is 0, then it is not prime
                     {
-                        ctr++;  // counter is true (for not prime numbers
+                        ctr++;  // counter is true (for not prime numbers)
                         break; // break checking that number, as it is not prime number
                     }
                 }
