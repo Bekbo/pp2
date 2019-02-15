@@ -11,21 +11,14 @@ namespace Task4
     {
         static void Main(string[] args)
         {
-            DirectoryInfo from = new DirectoryInfo("../../"); //path
-            DirectoryInfo to = new DirectoryInfo("../../../"); // path1
-            /*
-            First solution
-            File.AppendAllText(from + "text.txt" , "Some text here");
-            File.Copy( from + "text.txt", to + "text.txt");
-            File.Delete(from + "text.txt"); 
-            */
-            // Second solution
-            StreamWriter file = new StreamWriter(from + "text.txt");
-            file.Write("Some text here goes");
-            file.Close();
-            File.AppendAllText(from + "text.txt", " Some addition ");
-            File.Copy(from + "text.txt", to + "text.txt");
-            File.Delete(from + "text.txt");
+            DirectoryInfo from = new DirectoryInfo(@"C:\Users\User\Desktop\Univer\pp2\week2\Task4"); //path
+            DirectoryInfo to = new DirectoryInfo(@"C:\Users\User\Desktop\Univer\pp2\week2\Task4\Task4\"); // path1
+            StreamWriter file = new StreamWriter(from + "text.txt"); // create a file, or load it, if exists
+            file.Write("Some text here goes"); // write on the file
+            file.Close(); // close writing
+            File.AppendAllText(from + "text.txt", " Some addition "); //add some texts again
+            File.Copy(from + "text.txt", to + "newtext.txt"); // copy the file from initial path, to a folder upper
+            File.Delete(from + "text.txt");// delete the initial file
         }
     }
 }

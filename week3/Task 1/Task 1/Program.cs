@@ -1,0 +1,156 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Task_1
+{
+    class FarManager 
+    {
+        public int cursor = 0; // position of the cursor
+        public int size;
+
+        public FarManager()
+        {
+            cursor = 0;
+        }
+
+        public void Color(FileSystemInfo fs, int index)
+        {
+            if (index == cursor) // if the index of FileSystemInfo == cursor position
+            {
+                Console.BackgroundColor = ConsoleColor.Red; // these colors appear
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else if (fs.GetType() == typeof(DirectoryInfo)) // else if the FileSystemInfo where the cursor is folder
+            {
+                Console.BackgroundColor = ConsoleColor.Black;// these colors appear
+                Console.ForegroundColor = ConsoleColor.White; 
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Black; // or these, if it is file
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+            }
+        }
+
+        public void Show(string path)
+        {
+            DirectoryInfo directory = new DirectoryInfo(path); // main directory is path
+            FileSystemInfo[] fileSystemInfos = directory.GetFileSystemInfos(); // array consists of each element in the directory
+            size = fileSystemInfos.Length; // number of elements in the array
+            int index = 0; // index starts from zero
+            foreach (FileSystemInfo fs in fileSystemInfos)
+            {
+                Color(fs, index); // give colors to each fs
+                Console.WriteLine(index + 1 + ". " + fs.Name); // Write in Console the name of fs
+                index++; // increment index as it goes down in console
+            }
+        }
+
+        public void Start(string path)
+        {
+            Show(path);
+            DirectoryInfo directory = new DirectoryInfo(path); // main directory is path
+            FileSystemInfo[] fileSystemInfos = directory.GetFileSystemInfos();
+            ConsoleKeyInfo cnskey = Console.ReadKey(); // key from the keyboard
+            FileSystemInfo fs = null; // fs is null, because these operations bottom use only 1 FileSystemInfo
+            size = fileSystemInfos.Length;
+            while (cnskey.Key != ConsoleKey.X)  // while the keyboard is not in X
+            {
+                Console.BackgroundColor = ConsoleColor.Black; // background color
+                Console.Clear(); // clear the console from texts in each time for new cnskey
+                Show(path); // out the list of files
+                cnskey = Console.ReadKey(); // read the key
+                if (cnskey.Key == ConsoleKey.Escape) // if Esc
+                {
+                    cursor = 0;
+                    directory = directory.Parent; // go one folder upper
+                    path = directory.FullName; // change path to new, upper folder
+                }
+                if (cnskey.Key == ConsoleKey.UpArrow)// if UpArrow
+                {
+                    cursor--; // decrement the cursor as it goes down
+                    if (cursor < 0)
+                    {
+                        cursor = size - 1; // if cursor goes outside of 0, set it to the bottom
+                    }
+                }
+                if (cnskey.Key == ConsoleKey.DownArrow)
+                {
+                    cursor++; // increment the cursor position as it goes upper
+                    if (cursor == size)
+                    {
+                        cursor = 0; //if cursor goes outside of the size of array, set it to the start position
+                    }
+                }
+                if (cnskey.Key == ConsoleKey.F2) // change the name for F2
+                {
+                    fs = directory.GetFileSystemInfos()[cursor];
+                    string ext = Path.GetExtension(fs.FullName); // ext gets the file extension of given path
+                    Console.BackgroundColor = ConsoleColor.Black; // refresh the screen
+                    Console.Clear(); // refresh
+                    Console.WriteLine("New name for {0} :", fs.Name); // write to enter new name
+                    string name = Console.ReadLine(); // read new name
+                    if (fs.GetType() == typeof(DirectoryInfo)) // if user changes folder name
+                    {
+                        Directory.Move(fs.FullName, Path.GetDirectoryName(fs.FullName) + "/" + name);
+                        // Move the file from the the position of the folder to new folder in the same position but with new
+                        // name
+                    }
+                    else
+                    {
+                        File.Copy(fs.FullName, Path.GetDirectoryName(fs.FullName) + "/" + name + ext);
+                        // copy from initial position and put in same position with new name
+                        File.Delete(fs.FullName); // delete initial file
+                    }
+                    cursor = 0;// refresh the cursor
+                }
+                if (cnskey.Key == ConsoleKey.Delete) // if Del
+                {
+                    fs = directory.GetFileSystemInfos()[cursor]; // fs which was null, is equal the element in position of cursor
+                    if (fs.GetType() == typeof(DirectoryInfo)) // if its folder
+                    Directory.Delete(fs.FullName, true); // delete the folder with its all elements on it
+                    else
+                    File.Delete(fs.FullName); // or delete a file
+                    cursor = 0;
+                }
+                if (cnskey.Key == ConsoleKey.Enter) // Enter
+                {
+                    fs = directory.GetFileSystemInfos()[cursor];
+                    if (fs.GetType() == typeof(DirectoryInfo)) // if Folder
+                    {
+                        cursor = 0; // refresh cursor position
+                        directory = new DirectoryInfo(fs.FullName); // redirect
+                        path = fs.FullName; // re path
+                    }
+                    else // if file
+                    {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.Clear();
+                        using (StreamReader reader = File.OpenText(fs.FullName)) // read the txt file
+                        {
+                            string line = null; // each line in one string
+                            do
+                            {
+                                line = reader.ReadLine(); // each line is one line of the file
+                                Console.WriteLine(line); // output that line
+                            } while (line != null); // while it is not null
+                        }
+                        Console.ReadKey();
+                    }
+                }
+            }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            FarManager farmanager = new FarManager(); //new class FarManager
+            farmanager.Start("C:/Users/User/Desktop/Univer/pp2");// set initial path
+        }
+    }
+}
