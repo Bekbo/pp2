@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
 namespace Task_1
 {
     class FarManager 
@@ -88,7 +87,7 @@ namespace Task_1
                 }
                 if (cnskey.Key == ConsoleKey.F2) // change the name for F2
                 {
-                    fs = directory.GetFileSystemInfos()[cursor];
+                    fs = fileSystemInfos[cursor];
                     string ext = Path.GetExtension(fs.FullName); // ext gets the file extension of given path
                     Console.BackgroundColor = ConsoleColor.Black; // refresh the screen
                     Console.Clear(); // refresh
@@ -110,7 +109,7 @@ namespace Task_1
                 }
                 if (cnskey.Key == ConsoleKey.Delete) // if Del
                 {
-                    fs = directory.GetFileSystemInfos()[cursor]; // fs which was null, is equal the element in position of cursor
+                    fs = fileSystemInfos[cursor]; // fs which was null, is equal the element in position of cursor
                     if (fs.GetType() == typeof(DirectoryInfo)) // if its folder
                     Directory.Delete(fs.FullName, true); // delete the folder with its all elements on it
                     else
@@ -119,7 +118,7 @@ namespace Task_1
                 }
                 if (cnskey.Key == ConsoleKey.Enter) // Enter
                 {
-                    fs = directory.GetFileSystemInfos()[cursor];
+                    fs = fileSystemInfos[cursor];
                     if (fs.GetType() == typeof(DirectoryInfo)) // if Folder
                     {
                         cursor = 0; // refresh cursor position
