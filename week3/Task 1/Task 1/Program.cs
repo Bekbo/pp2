@@ -10,6 +10,9 @@ namespace Task_1
     {
         public int cursor = 0; // position of the cursor
         public int size;
+        public int top = 0;
+        public int down;
+        public int sh = 10;
         FileSystemInfo curfs = null; // the current FileSystemInfo where the cursor is
 
         public FarManager()
@@ -41,7 +44,7 @@ namespace Task_1
         {
             DirectoryInfo directory = new DirectoryInfo(path); // main directory is path
             FileSystemInfo[] fileSystemInfos = new FileSystemInfo[directory.GetFileSystemInfos().Length]; // array consists of each element in the directory
-            int ii = 0;
+            int ii = 0; 
             // Add folders first, then files
             foreach (FileSystemInfo fadd in directory.GetFileSystemInfos()) // foreach FileSystemInfo in directory do
             {
@@ -59,11 +62,19 @@ namespace Task_1
                     ii++;
                 }
             }
-            int index = 0; // index starts from zero
-            foreach (FileSystemInfo fs in fileSystemInfos)
+            int index = 0, size = fileSystemInfos.Length; // index starts from zero
+            for (int i = top; i < sh; i++)
             {
-                Color(fs, index); // give colors to each fs
-                Console.WriteLine(index + 1 + ". " + fs.Name); // Write in Console the name of fs
+                FileSystemInfo fs = fileSystemInfos[i];
+                int filen = 0, folder = 0;
+                if (fs.GetType() == typeof(DirectoryInfo))
+                {
+                    DirectoryInfo papka = new DirectoryInfo(fs.FullName);
+                    folder = papka.GetDirectories().Length;
+                    filen = papka.GetFiles().Length;
+                }
+                Color(fs, i); // give colors to each fs
+                Console.WriteLine(i + 1 + ". " + fs.Name + " " + folder + " " + filen); // Write in Console the name of fs
                 index++; // increment index as it goes down in console
             }
         }
@@ -104,7 +115,7 @@ namespace Task_1
                 {
                     cursor = 0;
                     directory = directory.Parent; // go one folder upper
-                    path = directory.Parent.FullName; // change path to new, upper folder
+                    path = directory.FullName; // change path to new, upper folder
                 }
                 if (cnskey.Key == ConsoleKey.UpArrow)// if UpArrow
                 {
@@ -112,6 +123,13 @@ namespace Task_1
                     if (cursor < 0)
                     {
                         cursor = size - 1; // if cursor goes outside of 0, set it to the bottom
+                        sh = size;
+                        top = size - 10;
+                    }
+                    if (cursor < top)
+                    {
+                        top--;
+                        sh--;
                     }
                 }
                 if (cnskey.Key == ConsoleKey.DownArrow)
@@ -120,6 +138,13 @@ namespace Task_1
                     if (cursor == size)
                     {
                         cursor = 0; //if cursor goes outside of the size of array, set it to the start position
+                        top = 0;
+                        sh = 10;
+                    }
+                    if (cursor > sh-1)
+                    {
+                        top++;
+                        sh++;
                     }
                 }
                 if (cnskey.Key == ConsoleKey.F2) // change the name for F2
@@ -183,7 +208,7 @@ namespace Task_1
         static void Main(string[] args)
         {
             FarManager farmanager = new FarManager(); //new class FarManager
-            farmanager.Start("C:/Users/User/Desktop/Univer/pp2");// set initial path
+            farmanager.Start("C:/Users/User/Desktop/");// set initial path
         }
     }
 }
