@@ -39,24 +39,24 @@ namespace Work
             if (MarkSubject > 94)
                 return Subject + " A";
             if (MarkSubject > 89)
-                return Subject + "A-";
+                return Subject + " A-";
             if (MarkSubject > 84)
-                return Subject + "B+";
+                return Subject + " B+";
             if (MarkSubject > 79)
-                return Subject + "B";
+                return Subject + " B";
             if (MarkSubject > 74)
-                return Subject + "B-";
+                return Subject + " B-";
             if (MarkSubject > 69)
-                return Subject + "C+";
+                return Subject + " C+";
             if (MarkSubject> 64)
-                return Subject + "C";
+                return Subject + " C";
             if (MarkSubject > 59)
-                return Subject + "C-";
+                return Subject + " C-";
             if (MarkSubject > 54)
-                return Subject + "D+";
+                return Subject + " D+";
             if (MarkSubject > 49)
-                return Subject + "D";
-            return Subject + "F";
+                return Subject + " D";
+            return Subject + " F";
         }
         public override string ToString()
         {
@@ -70,10 +70,6 @@ namespace Work
         public StudList()
         {
             Students = new List<Student>();
-        }
-        public override string ToString()
-        {
-            return Students + "";
         }
     }
 }

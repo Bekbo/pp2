@@ -15,6 +15,7 @@ namespace Work
             Student student = new Student();
             student.Name = "Bekbolat";
             student.SurName = "Ospan";
+
             MarkS mark = new MarkS();
             mark.Subject = "PP2";
             mark.MarkSubject = 95;
@@ -23,6 +24,7 @@ namespace Work
             Student student2 = new Student();
             student2.Name = "Abylay";
             student2.SurName = "Ospan";
+
             MarkS mark2 = new MarkS();
             mark2.Subject = "Calculus";
             mark2.MarkSubject = 70;
@@ -40,6 +42,10 @@ namespace Work
             FileStream fsopen = new FileStream("students.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
             XmlSerializer xsopen = new XmlSerializer(typeof(StudList));
             StudList studentOpen = xsopen.Deserialize(fsopen) as StudList;
+            for (int i =0;i<studentOpen.Students.Count;i++)
+            {
+                Console.WriteLine(studentOpen.Students[i]);
+            }
             Console.WriteLine(studentOpen);
             Console.ReadKey();
         }
