@@ -13,8 +13,8 @@ namespace MySnake
         public void Generate()
         {
             Random random = new Random();
-            int x = random.Next(2, Console.WindowWidth-2);
-            int y = random.Next(2, Console.WindowHeight-2);
+            int x = random.Next(2, 78);
+            int y = random.Next(2, 28);
             objects[0].x = x;
             objects[0].y = y;
         }

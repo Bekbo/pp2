@@ -17,7 +17,7 @@ namespace MySnake
         string name;
         public Food food;
         public Wall wall;
-        public int timer = 1500;
+        public int timer = 900;
         public int score = 1;
         public int lvlindex = 1;
 
@@ -44,6 +44,7 @@ namespace MySnake
             Console.WriteLine();
             Console.WriteLine("Press R to Reset Game or ESC to quit game");
             ConsoleKeyInfo console = Console.ReadKey();
+            
         }
 
         public void Start()
@@ -53,26 +54,10 @@ namespace MySnake
             name = Console.ReadLine();
             ConsoleKeyInfo key = Console.ReadKey();
             Console.ForegroundColor = ConsoleColor.Green;
+            Thread thread = new Thread(preDRAW);
+            thread.Start();
             while (alive || key.Key != ConsoleKey.Q)
             {
-                Thread thread = new Thread(preDRAW);
-                thread.Start();
-                if (snake.IsColl(wall) || snake.IsCollitself(snake))
-                {
-                    alive = false;
-                    break;
-                }
-                if (snake.IsColl(food))
-                {
-                    snake.objects.Add(new Point(0, 0));
-                    score += 1;
-                    while (food.IsColl(snake) || food.IsColl(wall))
-                        food.Generate();
-                    if (score % 3 ==0)
-                    {
-                        wall.NextLevel();
-                    }
-                }
                 if (alive && key.Key == ConsoleKey.Escape)
                 {
                     Save(food, snake, wall);
@@ -94,7 +79,6 @@ namespace MySnake
             {
                 Console.Clear();
                 snake.Move();
-                Draw();
                 if (snake.IsColl(wall) || snake.IsCollitself(snake))
                 {
                     alive = false;
@@ -111,11 +95,11 @@ namespace MySnake
                         wall.NextLevel();
                     }
                 }
+                Draw();
                 if (alive)
                 {
                     Save(food, snake, wall);
                 }
-                Console.Write("Score : " + score);
                 Thread.Sleep(timer);
             }
             Dead();

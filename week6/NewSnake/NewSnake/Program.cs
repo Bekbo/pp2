@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace NewSnake
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
+            //Console.SetWindowSize(80, 30);
+            //Console.SetBufferSize(80, 30);
+            Menu menu = new Menu();
+            menu.ShowMenu();
         }
     }
 }
