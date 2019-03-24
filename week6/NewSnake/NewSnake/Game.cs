@@ -51,6 +51,8 @@ namespace NewSnake
             Console.Clear();
             Start();
         }
+
+        bool save = false;
         public void Start()
         {
             IsAlive = true;
@@ -58,26 +60,20 @@ namespace NewSnake
             thread.Start();
             while (IsAlive)
             {
-                
                 ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Escape)
-                {
-                    IsAlive = false;
-                    break;
-                }
-                else if (key.Key == ConsoleKey.S || key.Key == ConsoleKey.Escape && IsAlive)
+                if (key.Key == ConsoleKey.S || key.Key == ConsoleKey.Escape && IsAlive)
                 {
                     Game savegame = new Game(snake, wall, food, name);
                     savegame.Save(savegame);
                     Console.Clear();
-                    Console.Write("Saved");
-                    Environment.Exit(0);
+                    save = true;
+                    Bye();
                 }
                 else
                     snake.Goo(key);
             }
-            Dead();
-
+            if (IsAlive == false)
+                Dead();
         }
 
         public void Save(Game game)
@@ -88,6 +84,16 @@ namespace NewSnake
             XmlSerializer xs = new XmlSerializer(typeof(Game));
             xs.Serialize(fs, game);
             fs.Close();
+        }
+
+        public void Bye()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.SetCursorPosition(20, 10);
+            Console.WriteLine("SNAKE GAME BY - - - Author : BAKE");
+            Console.WriteLine();
+            Console.WriteLine("The Game is Saved");
         }
 
         public void Dead()
@@ -112,6 +118,11 @@ namespace NewSnake
         {
             while (IsAlive)
             {
+                if (save)
+                {
+                    Thread.Sleep(1000);
+                    break;
+                }
                 snake.Clear();
                 snake.Move();
                 if (snake.IsColl(food))
@@ -135,9 +146,9 @@ namespace NewSnake
                 food.Draw();
                 Console.SetCursorPosition(30, 23);
                 Console.WriteLine(name + " Score : " + snake.body.Count);
-                Thread.Sleep(300);
+                Thread.Sleep(timer);
             }
-            Dead();
+            Environment.Exit(0);
         }
 
     }
