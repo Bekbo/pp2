@@ -52,8 +52,7 @@ namespace NewSnake
                 }
                 if (cursor == 2)
                 {
-                    Console.Write("OUT");
-                    Console.ReadKey();
+                    Environment.Exit(0);
                 }
             }
             if (key.Key == ConsoleKey.Escape)

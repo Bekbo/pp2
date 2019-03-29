@@ -134,6 +134,10 @@ namespace NewSnake
                     {
                         wall.Clear();
                         wall.NextLevel();
+                        if (snake.body.Count > 10)
+                        {
+                            timer = 250;
+                        }
                     }
                 }
                 if (snake.IsCollitself(snake) || snake.IsColl(wall))
