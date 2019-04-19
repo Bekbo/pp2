@@ -24,7 +24,7 @@ namespace Threads
 
         public static void thread1()
         {
-            for (i = i; i < i + 1; i++)
+            for (i = 0; i < 50; i++)
             {
                 Console.WriteLine(Thread.GetDomain().FriendlyName + " " + Thread.CurrentThread.Name + " " + Thread.CurrentThread.Name + " " + i);
                 Console.WriteLine();

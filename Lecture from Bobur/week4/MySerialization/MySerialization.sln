@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1", "MySerialization\Example1.csproj", "{CED14490-9F79-4A31-A800-AA6076DA429F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2", "Example2\Example2.csproj", "{585B2CF9-0645-49F5-AA83-5DF01FF03236}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CED14490-9F79-4A31-A800-AA6076DA429F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CED14490-9F79-4A31-A800-AA6076DA429F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CED14490-9F79-4A31-A800-AA6076DA429F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CED14490-9F79-4A31-A800-AA6076DA429F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{585B2CF9-0645-49F5-AA83-5DF01FF03236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{585B2CF9-0645-49F5-AA83-5DF01FF03236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{585B2CF9-0645-49F5-AA83-5DF01FF03236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{585B2CF9-0645-49F5-AA83-5DF01FF03236}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
