@@ -51,6 +51,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(255, 291);
             this.Controls.Add(this.output);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Калькулятор";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,29 +43,7 @@ namespace TryToPaintNo
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            end = e.Location;
-            label1.Text = e.Location.X + " " + e.Location.Y;
-            pen.Width = trackBar1.Value;
-            if (startdraw)
-            {
-                switch (shape)
-                {
-                    case Shape.None:
-                        break;
-                    case Shape.Pencil:
-                        g.DrawLine(pen, prev, e.Location);
-                        prev = e.Location;
-                        break;
-                    case Shape.Cleaner:
-                        int ww = trackBar1.Value;
-                        Pen pp = new Pen(Color.White, ww);
-                        g.DrawRectangle(pp, e.Location.X - ww/2, e.Location.Y - ww/2, ww, ww);
-                        break;
-                    default:
-                        break;
-                }
-                pictureBox1.Refresh();
-            }
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -75,84 +53,12 @@ namespace TryToPaintNo
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            end = e.Location;
+            
             Point p1, p2, p3, p4, p5;
             Point[] points;
             if (startdraw)
             {
-                switch (shape)
-                {
-                    case Shape.None:
-                        break;
-                    case Shape.Pencil:
-                        break;
-                    case Shape.Circle:
-                        g.DrawEllipse(pen, prev.X, prev.Y, e.Location.X - prev.X, e.Location.Y - prev.Y);
-                        break;
-                    case Shape.Rectangle:
-                        Rectangle res = new Rectangle();
-                        res.X = Math.Min(e.Location.X, prev.X);
-                        res.Y = Math.Min(e.Location.Y, prev.Y);
-                        res.Width = Math.Abs(prev.X - e.Location.X);
-                        res.Height = Math.Abs(prev.Y - e.Location.Y);
-                        g.DrawRectangle(pen, res);
-                        break;
-                    case Shape.Line:
-                        g.DrawLine(pen, prev, e.Location);
-                    break;
-                    case Shape.Cleaner:
-                        int ww = trackBar1.Value;
-                        Pen pp = new Pen(Color.White, ww);
-                        g.DrawRectangle(pp, e.Location.X - ww/2, e.Location.Y - ww/2, ww, ww);
-                        break;
-                    case Shape.Fill:
-                        Fill(e.Location, pen.Color);
-                        break;
-                    case Shape.Star:
-                        if (prev.X <= e.Location.X)
-                        {
-                            p1 = new Point((prev.X + e.Location.X) / 2, prev.Y);
-                            p2 = new Point(prev.X, (prev.Y + e.Location.Y) / 2);
-                            p3 = new Point(e.Location.X, (prev.Y + e.Location.Y) / 2);
-                            p4 = new Point(prev.X + Math.Abs(prev.X - e.Location.X) / 5, e.Location.Y);
-                            p5 = new Point(prev.X + Math.Abs(prev.X - e.Location.X) * 4 / 5, e.Location.Y);
-                        }
-                        else
-                        {
-                            end = prev;
-                            prev = e.Location;
-                            p1 = new Point((prev.X + end.X) / 2, prev.Y);
-                            p2 = new Point(prev.X, (prev.Y + end.Y) / 2);
-                            p3 = new Point(end.X, (prev.Y + end.Y) / 2);
-                            p4 = new Point(prev.X + Math.Abs(prev.X - end.X) / 5, end.Y);
-                            p5 = new Point(prev.X + Math.Abs(prev.X - end.X) * 4 / 5, end.Y);
-                        }
-                        //points = new Point[3] { p1, p4, p3};
-                        //g.FillPolygon(Brushes.Red, points);
-                        //points = new Point[3] { p2, p5, p1 };
-                        points = new Point[6] { p1,p4,p3,p2, p5, p1 };
-                        //g.FillPolygon(Brushes.Red, points);
-                        //graphicsPath.AddLines(points);
-                        //g.FillPath(Brushes.Red, graphicsPath);
-                        g.DrawLines(pen, points);
-                        break;
-                    case Shape.Tri:
-                        p1 = new Point((e.Location.X + prev.X) / 2, prev.Y);
-                        p2 = new Point(e.Location.X, e.Location.Y);
-                        p3 = new Point(prev.X, e.Location.Y);
-                        points = new Point[3] { p1, p2, p3 };
-                        g.DrawPolygon(pen, points);
-                        break;
-                    case Shape.RightTri:
-                        p1 = new Point(prev.X, e.Location.Y);
-                        p2 = new Point(e.Location.X, e.Location.Y);
-                        p3 = new Point(prev.X, prev.Y);
-                        points = new Point[3] { p1, p2, p3 };
-                        g.DrawPolygon(pen, points);
-                        break;
-                    default:
-                        break;
-                }
+                
                 pictureBox1.Refresh();
                 startdraw = false;
             }

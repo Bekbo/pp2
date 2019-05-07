@@ -15,6 +15,7 @@ namespace NewnewCalc
         CalcBase calc;
         public bool clr, tochka = false, restwice = false;
         public double last = 0,memory=0;
+        public int kk = 0;
         public Form1()
         {
             InitializeComponent();
@@ -157,10 +158,22 @@ namespace NewnewCalc
         {
             restwice = false;
             Button btn = (Button)sender;
-            calc.num1 = Double.Parse(output.Text);
-            output.Text = "0";
+            if (kk != 0)
+            {
+                calc.num2 = Double.Parse(output.Text);
+                calc.Calculate();
+                calc.num1 = calc.res;
+                output.Text = calc.res + "";
+                clr = true;
+            }
+            else
+            {
+                calc.num1 = Double.Parse(output.Text);
+                output.Text = "0";
+            }
             calc.oper = btn.Text;
             tochka = false;
+            kk++;
         }
 
         private void monooper_Click(object sender, EventArgs e)
